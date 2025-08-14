@@ -2,7 +2,7 @@ from fpdf import FPDF, HTMLMixin, XPos , YPos
 from PIL import Image
 import os
 import re
-from config import DEFAULT_SUBJECT
+from config import DEFAULT_SUBJECT, DEJAVU_BOLD,DEJAVU_REG,DEJAVU_BOLD_ITALIC,DEJAVU_BOLD_OBLIQUE,DEJAVU_OBLIQUE
 
 class LetterPDF(FPDF, HTMLMixin):
     def __init__(self, partner_info, header_path=None, footer_path=None):
@@ -13,10 +13,10 @@ class LetterPDF(FPDF, HTMLMixin):
         self.set_left_margin ( 15 )
         self.set_right_margin ( 15 )
 
-        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans.ttf" ) )
-        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans-Bold.ttf" ) )
-        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans-Oblique.ttf" ) )
-        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "~/Library/Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ) )
+        self.add_font ( "DejaVu" , "" , os.path.expanduser ( DEJAVU_REG ) )
+        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( DEJAVU_BOLD) )
+        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( DEJAVU_OBLIQUE ) )
+        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( DEJAVU_BOLD_ITALIC) )
 
     def ensure_space(self , height_needed) :
         """
