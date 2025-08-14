@@ -13,10 +13,10 @@ class LetterPDF(FPDF, HTMLMixin):
         self.set_left_margin ( 15 )
         self.set_right_margin ( 15 )
 
-        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "Fonts/DejaVuSans.ttf" ) )
-        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "Fonts/DejaVuSans-Bold.ttf" ) )
-        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "Fonts/DejaVuSans-Oblique.ttf" ) )
-        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ) )
+        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans.ttf" ) )
+        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans-Bold.ttf" ) )
+        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans-Oblique.ttf" ) )
+        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "~/Library/Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ) )
 
     def ensure_space(self , height_needed) :
         """
@@ -285,3 +285,13 @@ class LetterPDF(FPDF, HTMLMixin):
         self.ln ( 4 )
         self.set_font ( "DejaVu" , "B" , size=9 )
         self.safe_multicell ( "Trustbay Finserv Pvt. Ltd." )
+
+
+def generate_covering_letter_pdf(data, institution_info, partner_info, output_path, header_path, footer_path, logo_path):
+    letter_pdf = LetterPDF ( partner_info , header_path=header_path , footer_path=footer_path )
+    letter_pdf.add_page ( )
+    letter_pdf.add_intro ( institution_info [ "name" ] , institution_info [ "owner" ] , institution_info [ "address" ] )
+    letter_pdf.add_letter_body ( )
+    print ( f"📝 Attempting to save PDF to {output_path}" )
+    letter_pdf.output ( output_path )
+    print ( f"✅ Successfully saved PDF to {output_path}" )
