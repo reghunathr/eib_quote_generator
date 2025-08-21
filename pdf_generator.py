@@ -200,7 +200,7 @@ class QuotationPDF(FPDF):
         self.cell(40, 6, f"OD: ₹{float(row['OD_Premium']):,.2f}", border=1)
         self.cell(40, 6, f"Net: ₹{float(row['Net_Premium']):,.2f}", border=1)
         self.cell(40, 6, f"GST: ₹{float(row['GST_Amount']):,.2f}", border=1)
-        self.cell(30, 6, f"Gross: ₹{float(row['Gross_Premium']):,.2f}", border=1, ln=True)
+        self.cell(30, 6, f"Total: ₹{float(row['Gross_Premium']):,.2f}", border=1, ln=True)
 
 
         self.cell(90, 6, f"Advance Paid: ₹{float(row['Adv_Paid']):,.2f}", border=1)
@@ -226,7 +226,7 @@ class QuotationPDF(FPDF):
             ("OD_Premium" , "OD" , 18) ,
             ("Net_Premium" , "Net" , 18) ,
             ("GST_Amount" , "GST" , 18) ,
-            ("Gross_Premium" , "Gross" , 20) ,
+            ("Gross_Premium" , "Total" , 20) ,
             ("Adv_Paid" , "Advance" , 20) ,
             ("Final_Amount" , "Final" , 20) ,
             ("vehicleInsuranceUpto" , "Expiry" , 18) ,
@@ -497,6 +497,7 @@ class QuotationPDF(FPDF):
 
 
 def generate_quotation_pdf(data, institution_info, partner_info, output_path, header_path, footer_path, logo_path):
+    print(data)
     pdf = QuotationPDF(header_path, footer_path, logo_path,partner_info)
     pdf.add_page()
 
