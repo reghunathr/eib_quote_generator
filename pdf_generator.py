@@ -2,7 +2,7 @@ from fpdf import FPDF
 import os
 from PIL import Image, ImageEnhance
 from pandas import to_datetime
-from config import DEFAULT_SUBJECT, DEJAVU_BOLD,DEJAVU_REG,DEJAVU_BOLD_ITALIC,DEJAVU_BOLD_OBLIQUE,DEJAVU_OBLIQUE
+from config import DEFAULT_SUBJECT
 from fpdf.enums import XPos , YPos
 
 
@@ -14,10 +14,10 @@ class QuotationPDF(FPDF):
         self.logo_path = logo_path
         self.partner_info = partner_info
         self.set_margin(5)
-        self.add_font ( "DejaVu" , "" , os.path.expanduser ( DEJAVU_REG))
-        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( DEJAVU_BOLD ) )
-        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( DEJAVU_OBLIQUE ) )
-        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( DEJAVU_BOLD_ITALIC ))
+        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans.ttf" ))
+        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans-Bold.ttf" ) )
+        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "~/Library/Fonts/DejaVuSans-Oblique.ttf" ) )
+        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "~/Library/Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ))
         self.set_font ( "DejaVu" , size=7 )
 
     def ensure_space(self , height_needed) :
@@ -219,16 +219,17 @@ class QuotationPDF(FPDF):
 
         # (DataFrame column, Display Label, Width)
         headers = [
-            ("regNo" , "Reg No" , 20) ,
+            ("regNo" , "Reg No" , 18) ,
             ("vehicleSeatCapacity" , "Seat" , 10) ,
-            ("IDV" , "IDV **" , 20) ,
+            ("ModelYear" , "Model" , 10 ),
+            ("IDV" , "IDV **" , 18) ,
             ("TP_Premium" , "TP" , 18) ,
             ("OD_Premium" , "OD" , 18) ,
             ("Net_Premium" , "Net" , 18) ,
             ("GST_Amount" , "GST" , 18) ,
-            ("Gross_Premium" , "Total" , 20) ,
-            ("Adv_Paid" , "Advance" , 20) ,
-            ("Final_Amount" , "Final" , 20) ,
+            ("Gross_Premium" , "Total" , 18) ,
+            ("Adv_Paid" , "Advance" , 18) ,
+            ("Final_Amount" , "Final" , 18) ,
             ("vehicleInsuranceUpto" , "Expiry" , 18) ,
         ]
 
@@ -264,7 +265,7 @@ class QuotationPDF(FPDF):
                     if col in ("IDV" , "TP_Premium" , "OD_Premium" , "Net_Premium" , "GST_Amount" ,
                                "Gross_Premium" , "Adv_Paid" , "Final_Amount") :
                         val = f"₹{float ( val ):,.0f}"
-                    elif col == "vehicleSeatCapacity" :
+                    elif col == ("vehicleSeatCapacity","ModelYear") :
                         val = str ( int ( float ( val ) ) ) if val else ""
 
                     self.set_font ( "DejaVu" , "" , font_size )  # 👈 Normal font
@@ -280,7 +281,7 @@ class QuotationPDF(FPDF):
 
         for col , _ , width in headers [ 2 :-1 ] :  # From IDV to Final_Amount
             total = df [ col ].sum ( )
-            val = f"₹{total:,.0f}" if col != "vehicleSeatCapacity" else ""
+            val = f"₹{total:,.0f}" if col not in ("vehicleSeatCapacity", "ModelYear") else ""
             self.cell ( width , row_height , val , border=1 , align="C" , fill=True )
 
         self.cell ( headers [ -1 ] [ 2 ] , row_height , "" , border=1 , fill=True )  # Expiry
@@ -380,9 +381,9 @@ class QuotationPDF(FPDF):
 
         self.ensure_space ( 12 )
         self.ln(5)
-        self.set_font ( "DejaVu" , size=8 )
+        self.set_font ( "DejaVu" , "BI", size=8 )
         self.multi_cell (0,5,
-            "We work with leading insurers such as Tata AIG, Reliance General, Future Generali and major Public Sector Companies." )
+            "The rates quoted above are from TATA AIG General Insurance Company Limited. We work with leading insurers such as Tata AIG, Reliance General, Future Generali and major Public Sector Companies." )
 
         self.ln(2)
         self.ensure_space (25)
@@ -497,7 +498,6 @@ class QuotationPDF(FPDF):
 
 
 def generate_quotation_pdf(data, institution_info, partner_info, output_path, header_path, footer_path, logo_path):
-    print(data)
     pdf = QuotationPDF(header_path, footer_path, logo_path,partner_info)
     pdf.add_page()
 
