@@ -2,7 +2,7 @@ from fpdf import FPDF
 import os
 from PIL import Image, ImageEnhance
 from pandas import to_datetime
-from config import DEFAULT_SUBJECT
+from config import DEFAULT_SUBJECT, DEJAVU_BOLD,DEJAVU_REG,DEJAVU_BOLD_ITALIC,DEJAVU_BOLD_OBLIQUE,DEJAVU_OBLIQUE
 from fpdf.enums import XPos , YPos
 
 
@@ -14,10 +14,10 @@ class QuotationPDF(FPDF):
         self.logo_path = logo_path
         self.partner_info = partner_info
         self.set_margin(5)
-        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "Fonts/DejaVuSans.ttf" ))
-        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "Fonts/DejaVuSans-Bold.ttf" ) )
-        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "Fonts/DejaVuSans-Oblique.ttf" ) )
-        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ))
+        self.add_font ( "DejaVu" , "" , os.path.expanduser ( DEJAVU_REG ))
+        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( DEJAVU_BOLD ) )
+        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( DEJAVU_OBLIQUE ) )
+        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( DEJAVU_BOLD_ITALIC ))
         self.set_font ( "DejaVu" , size=7 )
 
     def ensure_space(self , height_needed) :
