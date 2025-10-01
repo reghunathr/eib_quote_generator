@@ -14,10 +14,10 @@ class QuotationPDF(FPDF):
         self.logo_path = logo_path
         self.partner_info = partner_info
         self.set_margin(5)
-        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "/Fonts/DejaVuSans.ttf" ))
-        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "/Fonts/DejaVuSans-Bold.ttf" ) )
-        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "/Fonts/DejaVuSans-Oblique.ttf" ) )
-        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "/Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ))
+        self.add_font ( "DejaVu" , "" , os.path.expanduser ( "Fonts/DejaVuSans.ttf" ))
+        self.add_font ( "DejaVu" , "B" , os.path.expanduser ( "Fonts/DejaVuSans-Bold.ttf" ) )
+        self.add_font ( "DejaVu" , "I" , os.path.expanduser ( "Fonts/DejaVuSans-Oblique.ttf" ) )
+        self.add_font ( "DejaVu" , "BI" , os.path.expanduser ( "Fonts/DejaVuSerifCondensed-BoldItalic.ttf" ))
         self.set_font ( "DejaVu" , size=7 )
 
     def ensure_space(self , height_needed) :
