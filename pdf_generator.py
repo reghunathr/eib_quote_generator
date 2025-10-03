@@ -383,7 +383,7 @@ class QuotationPDF(FPDF):
         self.ln(5)
         self.set_font ( "DejaVu" , "BI", size=8 )
         self.multi_cell (0,5,
-            "The rates quoted above are from TATA AIG General Insurance Company Limited. We work with leading insurers such as Tata AIG, Reliance General, Future Generali and major Public Sector Companies." )
+            "The rates quoted above are from Reliance General Insurance Company Limited. We work with leading insurers such as Tata AIG, Reliance General, Future Generali and major Public Sector Companies." )
 
         self.ln(2)
         self.ensure_space (25)
