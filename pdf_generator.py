@@ -75,7 +75,7 @@ class QuotationPDF(FPDF):
         self.ln(12)
 
     def footer(self) :
-        HO_ADDRESS = "HO : PGRA 5, Plamood | Pattom P.O | Trivandrum | PIN: 695004 | PH: 9447157307, 9567300733"
+        HO_ADDRESS = "HO : PGRA 5, Plamood | Pattom P.O | Trivandrum | Pin: 695004 | PH: 9447157307, 9567300733"
 
         # Get list of service points (assumed to be a list of strings)
         service_points = self.partner_info.get ( "Service_Point" , [ ] )  # List of points
