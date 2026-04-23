@@ -75,7 +75,7 @@ class QuotationPDF(FPDF):
         self.ln(12)
 
     def footer(self) :
-        HO_ADDRESS = "HO : PGRA 5, Plamood | Pattom P.O | Trivandrum | PIN: 695004 | PH: 9447157307, 9567300733"
+        HO_ADDRESS = "HO : PGRA 5, Plamood | Pattom P.O | Trivandrum | PIN: 695004 |"
 
         # Get list of service points (assumed to be a list of strings)
         service_points = self.partner_info.get ( "Service_Point" , [ ] )  # List of points
@@ -438,7 +438,7 @@ class QuotationPDF(FPDF):
         self.ln ( 1 )
         self.multi_cell (0,5, "- Mr. Sathyanath R (North Kerala) – 9744696462" )
         self.ln ( 1 )
-        self.multi_cell ( 0,5,"- Mr. Saiju Philip (Head – EIB Services) – 9447157307" )
+        #self.multi_cell ( 0,5,"- Mr. Saiju Philip (Head – EIB Services) – 9447157307" )
         """
         self.ensure_space ( 20 )
         self.ln ( 3 )
@@ -460,7 +460,7 @@ class QuotationPDF(FPDF):
             text=f"{ self.partner_info [ 'Name' ]} ({self.partner_info [ 'Location' ]}) – {self.partner_info [ 'Mobile' ]}",align="C" ,ln=True
         )
 
-        self.cell ( 0 , 5 , "Mr. Saiju Philip (Head – EIB Services) – 9447157307" , ln=True , align="C" )
+        #self.cell ( 0 , 5 , "Mr. Saiju Philip (Head – EIB Services) – 9447157307" , ln=True , align="C" )
 
         self.ensure_space ( 25 )
         self.ln ( 2 )
@@ -472,7 +472,7 @@ class QuotationPDF(FPDF):
 
         # Construct the message
         offers_text = (
-            f"> - 24x7 Claim Support from our offices in {self.partner_info [ 'Location' ]} and HO. Call: {self.partner_info [ 'Mobile' ]}, 9567300733, 7902748494 "
+            f"> - 24x7 Claim Support from our offices in {self.partner_info [ 'Location' ]} and HO. Call: {self.partner_info [ 'Mobile' ]}"
             "> - Prompt assistance to help you initiate claims and complete forms effortlessly.  "
             "> - End-to-end support from surveyor scheduling to final claim settlement.  "
             "> - 95% Discount on Own Damage (OD) Premium.  "
